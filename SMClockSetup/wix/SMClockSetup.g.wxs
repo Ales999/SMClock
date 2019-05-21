@@ -269,7 +269,7 @@
 
     </Directory>
 
-    <WixVariable Id="WixUILicenseRtf" Value="C:\Dev\Projects\SMClockLite\SMClockSetup\EULA.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="C:\Dev\--ToDelete--\tmp-files\SMClock\SMClockSetup\EULA.rtf" />
 
     <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." Schedule="afterInstallValidate" />
 
