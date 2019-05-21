@@ -1,0 +1,3 @@
+[submodule "SharpConfig"]
+	path = SharpConfig
+	url = https://github.com/Ales999/SharpConfig.git

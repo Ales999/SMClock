@@ -1,0 +1,281 @@
+﻿<Window
+    x:Class="SMClock.Modules.SheduleConfig.Views.SheduleConfigView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:smClock="clr-namespace:SMClock"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    x:Name="CfgWindow"
+    Title="Настройка SMClock"
+    Width="258.69"
+    Height="285"
+    cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]"
+    Icon="/CommonViews;component/Icons/clock.ico"
+    ResizeMode="CanMinimize"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <smClock:BooleanAndConverter x:Key="booleanAndConverter" />
+    </Window.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  http://odotnet.ru/ms-caliburn-micro-part-3-more-about-events-and-parameters/  -->
+        <Button
+            Grid.Row="0"
+            Margin="10"
+            VerticalAlignment="Top"
+            Content="Сохранить настройки">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="SaveConfig" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+
+        <TabControl
+            x:Name="tabControl"
+            Grid.Row="1"
+            Width="Auto"
+            Height="198"
+            Margin="2,5">
+            <TabItem x:Name="tabItem" Header="Каждые ...">
+                <Grid>
+                    <StackPanel Margin="0,10,0,0">
+                        <StackPanel.Children>
+                            <StackPanel>
+                                <ComboBox
+                                    Name="PeriodicTimeList"
+                                    Margin="10"
+                                    DisplayMemberPath="Key"
+                                    SelectedValue="Value" />
+                            </StackPanel>
+                            <StackPanel Margin="0" Orientation="Horizontal">
+                                <TextBox
+                                    Name="PlayFileEveryTime"
+                                    Width="195"
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    IsReadOnly="True"
+                                    ToolTip="{Binding Text, ElementName=PlayFileEveryTime}" />
+                                <Button
+                                    x:Name="SetEveryTimeFileBtn"
+                                    Width="22"
+                                    Margin="5,0,10,0"
+                                    Content="..." />
+                            </StackPanel>
+                            <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                                <CheckBox Name="AutoStartApp" ToolTip="Автоматически запускать приложение при старте">Авто-запуск приложения</CheckBox>
+                            </StackPanel>
+                        </StackPanel.Children>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="В указанное время">
+                <Grid>
+                    <StackPanel Margin="5,10,5,0" Orientation="Vertical">
+                        <StackPanel.Children>
+                            <StackPanel Margin="0,10,0,0">
+                                <CheckBox
+                                    Name="UsingAtTime"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Left"
+                                    Content="Также в указанное время:" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox
+                                    Name="PlayFileAtTime"
+                                    Width="196"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    IsReadOnly="True"
+                                    ToolTip="{Binding Text, ElementName=PlayFileAtTime}" />
+                                <Button
+                                    Name="SetAtTimeFileBtn"
+                                    Width="22"
+                                    Margin="5,0,10,0"
+                                    Content="..."
+                                    IsEnabled="{Binding IsChecked, ElementName=UsingAtTime}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                <CheckBox
+                                    Name="At1Box"
+                                    Width="157"
+                                    VerticalAlignment="Center"
+                                    Content="1 Уведомление в: "
+                                    IsEnabled="{Binding IsChecked, ElementName=UsingAtTime}" />
+                                <xctk:DateTimeUpDown
+                                    MinWidth="60"
+                                    Margin="5,0,0,0"
+                                    AllowTextInput="False"
+                                    DisplayDefaultValueOnEmptyText="True"
+                                    Format="ShortTime"
+                                    FormatString="hh:mm"
+                                    Kind="Local"
+                                    Text="{Binding OneDT, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="Visible"
+                                    Watermark="00:00"
+                                    Value="2017-01-01">
+                                    <xctk:DateTimeUpDown.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource booleanAndConverter}">
+                                            <Binding ElementName="At1Box" Path="IsChecked" />
+                                            <Binding ElementName="UsingAtTime" Path="IsChecked" />
+                                        </MultiBinding>
+                                    </xctk:DateTimeUpDown.IsEnabled>
+                                </xctk:DateTimeUpDown>
+                            </StackPanel>
+                            <StackPanel
+                                Name="At2"
+                                Margin="0,5,0,0"
+                                Orientation="Horizontal">
+                                <CheckBox
+                                    Name="At2Box"
+                                    Width="157"
+                                    VerticalAlignment="Center"
+                                    Content="2 Уведомление в: "
+                                    IsEnabled="{Binding IsChecked, ElementName=UsingAtTime}" />
+                                <xctk:DateTimeUpDown
+                                    MinWidth="60"
+                                    Margin="5,0,0,0"
+                                    AllowTextInput="False"
+                                    CurrentDateTimePart="Hour24"
+                                    DisplayDefaultValueOnEmptyText="True"
+                                    Format="ShortTime"
+                                    FormatString="hh:mm"
+                                    Kind="Local"
+                                    Text="{Binding TwoDT, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="Visible"
+                                    Watermark="00:00"
+                                    Value="2017-01-01">
+                                    <xctk:DateTimeUpDown.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource booleanAndConverter}">
+                                            <Binding ElementName="At2Box" Path="IsChecked" />
+                                            <Binding ElementName="UsingAtTime" Path="IsChecked" />
+                                        </MultiBinding>
+                                    </xctk:DateTimeUpDown.IsEnabled>
+
+                                </xctk:DateTimeUpDown>
+                            </StackPanel>
+                            <StackPanel
+                                Name="At3"
+                                Margin="0,5,0,0"
+                                Orientation="Horizontal">
+                                <CheckBox
+                                    Name="At3Box"
+                                    Width="157"
+                                    VerticalAlignment="Center"
+                                    Content="3 Уведомление в: "
+                                    IsEnabled="{Binding IsChecked, ElementName=UsingAtTime}" />
+                                <xctk:DateTimeUpDown
+                                    MinWidth="60"
+                                    Margin="5,0,0,0"
+                                    AllowTextInput="False"
+                                    CurrentDateTimePart="Hour24"
+                                    DisplayDefaultValueOnEmptyText="True"
+                                    Format="ShortTime"
+                                    FormatString="hh:mm"
+                                    Kind="Local"
+                                    Text="{Binding ThreeDT, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="Visible"
+                                    Watermark="00:00"
+                                    Value="2017-01-01">
+                                    <xctk:DateTimeUpDown.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource booleanAndConverter}">
+                                            <Binding ElementName="At3Box" Path="IsChecked" />
+                                            <Binding ElementName="UsingAtTime" Path="IsChecked" />
+                                        </MultiBinding>
+                                    </xctk:DateTimeUpDown.IsEnabled>
+
+
+                                </xctk:DateTimeUpDown>
+                            </StackPanel>
+                            <StackPanel
+                                Name="At4"
+                                Margin="0,5,0,0"
+                                Orientation="Horizontal">
+                                <CheckBox
+                                    Name="At4Box"
+                                    Width="157"
+                                    VerticalAlignment="Center"
+                                    Content="4 Уведомление в: "
+                                    IsEnabled="{Binding IsChecked, ElementName=UsingAtTime}" />
+                                <xctk:DateTimeUpDown
+                                    MinWidth="60"
+                                    Margin="5,0,0,0"
+                                    AllowTextInput="False"
+                                    CurrentDateTimePart="Hour24"
+                                    DisplayDefaultValueOnEmptyText="True"
+                                    Format="ShortTime"
+                                    FormatString="hh:mm"
+                                    Kind="Local"
+                                    Text="{Binding FourDT, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="Visible"
+                                    Watermark="00:00"
+                                    Value="2017-01-01">
+                                    <xctk:DateTimeUpDown.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource booleanAndConverter}">
+                                            <Binding ElementName="At4Box" Path="IsChecked" />
+                                            <Binding ElementName="UsingAtTime" Path="IsChecked" />
+                                        </MultiBinding>
+                                    </xctk:DateTimeUpDown.IsEnabled>
+
+                                </xctk:DateTimeUpDown>
+                            </StackPanel>
+                        </StackPanel.Children>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+
+            <!--
+                <TabItem Header="Dev">
+                    <Grid>
+                        <DataGrid Name="dg"
+                                  Width="170"
+                                  Height="50"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+
+                        <DataGrid Name="dg1"
+                                  Width="170"
+                                  Height="50"
+                                  Margin="0,60,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top" />
+
+                    </Grid>
+                </TabItem>
+            -->
+        </TabControl>
+    </Grid>
+</Window>
+
+<!--
+                    <TextBox Name="PlayFileAtTime"
+                         Width="Auto"
+                         Height="20"
+                         Margin="10" />
+                <Button Content="..." />-->
+
+<!--
+            <TextBlock FontSize="12">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0:00}:{1:00;00}">
+                        <Binding Path="MyTimeSpan.Hours" />
+                        <Binding Path="MyTimeSpan.Minutes" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text="{Binding MyTimeSpan, StringFormat='{}{0:hh\\:mm\\:ss}'}" />
+            <Label Content="{Binding MyTimeSpan}"
+                   ContentStringFormat="{}{0:00}:{1:00;00}"
+                   FontSize="12" />-->
+
+

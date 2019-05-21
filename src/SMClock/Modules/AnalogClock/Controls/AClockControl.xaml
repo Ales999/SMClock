@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Dnw.AnalogClock.Controls.AClockControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="{Binding Clock.BackColor}">
+
+		<Canvas
+            Name="TickCanvas"  HorizontalAlignment="Center" VerticalAlignment="Center"  ></Canvas>
+
+
+
+		<Canvas
+            Name="HandsCanvas"  HorizontalAlignment="Center" VerticalAlignment="Center"  >
+			<Line 
+				X1="{Binding Path=Clock.CenterX, UpdateSourceTrigger=PropertyChanged}"
+				Y1="{Binding Path=Clock.CenterY, UpdateSourceTrigger=PropertyChanged}"
+				X2="{Binding Path=Clock.HourHand.EndPointX, UpdateSourceTrigger=PropertyChanged}"
+				Y2="{Binding Path=Clock.HourHand.EndPointY, UpdateSourceTrigger=PropertyChanged}"
+				Stroke="{Binding Path=Clock.HourHand.HandColor, UpdateSourceTrigger=PropertyChanged}"
+				StrokeThickness="{Binding Path=Clock.HourHand.HandThickness, UpdateSourceTrigger=PropertyChanged}"
+				
+				/>
+			<Line 
+				X1="{Binding Path=Clock.CenterX, UpdateSourceTrigger=PropertyChanged}"
+				Y1="{Binding Path=Clock.CenterY, UpdateSourceTrigger=PropertyChanged}"
+				X2="{Binding Path=Clock.MinuteHand.EndPointX, UpdateSourceTrigger=PropertyChanged}"
+				Y2="{Binding Path=Clock.MinuteHand.EndPointY, UpdateSourceTrigger=PropertyChanged}"
+				Stroke="{Binding Path=Clock.MinuteHand.HandColor, UpdateSourceTrigger=PropertyChanged}"
+				StrokeThickness="{Binding Path=Clock.MinuteHand.HandThickness, UpdateSourceTrigger=PropertyChanged}"
+				
+				/>
+			<Line 
+				X1="{Binding Path=Clock.CenterX, UpdateSourceTrigger=PropertyChanged}"
+				Y1="{Binding Path=Clock.CenterY, UpdateSourceTrigger=PropertyChanged}"
+				X2="{Binding Path=Clock.SecondsHand.EndPointX, UpdateSourceTrigger=PropertyChanged}"
+				Y2="{Binding Path=Clock.SecondsHand.EndPointY, UpdateSourceTrigger=PropertyChanged}"
+				Stroke="{Binding Path=Clock.SecondsHand.HandColor, UpdateSourceTrigger=PropertyChanged}"
+				StrokeThickness="{Binding Path=Clock.SecondsHand.HandThickness, UpdateSourceTrigger=PropertyChanged}"
+				
+				/>
+		</Canvas>
+					
+
+	</Grid>
+</UserControl>
