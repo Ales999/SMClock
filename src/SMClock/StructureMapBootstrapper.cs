@@ -35,9 +35,7 @@
 */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -45,7 +43,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using AClockLibrary.Views;
 using Caliburn.Micro;
 using CommonLib;
 using CommonLib.Interfaces;
@@ -53,11 +50,12 @@ using SMClock.Modules.SheduleConfig;
 using SMClock.Modules.TrayIcon;
 using SMClock.Modules.TrayIcon.Views;
 using StructureMap;
-using StructureMap.Graph;
-using StructureMap.Graph.Scanning;
 using StructureMap.TypeRules;
 using Registry = StructureMap.Registry;
 
+#if DEBUG
+using System.Diagnostics;
+#endif
 
 namespace SMClock
 {

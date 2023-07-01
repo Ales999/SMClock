@@ -38,8 +38,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
 using Caliburn.Micro;
 using CommonLib;
 using CommonLib.Interfaces;
@@ -48,7 +46,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StructureMap;
 using StructureMap.Pipeline;
-using Action = System.Action;
 
 namespace SMClock.Modules.SheduleConfig.ViewModels
 {
