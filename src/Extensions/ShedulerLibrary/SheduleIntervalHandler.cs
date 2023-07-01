@@ -35,9 +35,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using CommonLib.Interfaces;
 using ShedulerLibrary.Jobs;
@@ -48,7 +45,6 @@ namespace ShedulerLibrary
 {
     using Caliburn.Micro;
     using System.Threading;
-    using Trigger;
     using Trigger.NET;
     using Trigger.NET.FluentAPI;
 
@@ -61,7 +57,7 @@ namespace ShedulerLibrary
         private readonly IEventAggregator _eventAggregator;
         private Guid jobId;
 
-        private readonly Scheduler _scheduler;
+        private Scheduler _scheduler;
         private PlayWavFile _playerFile;
         // Признак что нужно пересозать Job
         private static bool _neededChangeJob;
@@ -78,14 +74,14 @@ namespace ShedulerLibrary
             if (eventAggregator == null) throw new ArgumentNullException(nameof(eventAggregator));
 
             _eventAggregator = eventAggregator;
-            //_eventAggregator.Subscribe(this); // Old Caliburn
             _eventAggregator.SubscribeOnPublishedThread(this);
             _logger = logger;
-            _scheduler = new Scheduler();
+            //_scheduler = new Scheduler();
 
             _neededChangeJob = false;
-
-            _logger.Information("--- Enter Ctor SheduleHandler ---");
+#if DEBUG
+            _logger?.Information("--- Enter Ctor SheduleHandler ---");
+#endif
         }
 
         public async Task HandleAsync(IPeriodicPlayDataMsg message, CancellationToken cancellationToken)
@@ -107,8 +103,9 @@ namespace ShedulerLibrary
             
             Period = notification.Message.EveryMinut;
             FileNamePeriodPlay = notification.Message.FileName;
-
+#if DEBUG
             _logger.Information($"Handle SheduleHandler, period: {Period}, file to play: {FileNamePeriodPlay}");
+#endif
             // Получены новые данные - запускаем/перезапускаем наш шедулер
             ConfigureSheduler(notification.Message.FileName, notification.Message.EveryMinut);
 
@@ -125,7 +122,13 @@ namespace ShedulerLibrary
             // Если не дефолт - значит Job уже назначен - удаляем его
             if ( _neededChangeJob )
             {
-                _scheduler.RemoveJob(jobId);
+                if (_scheduler != null)
+                {
+                    _scheduler.RemoveJob(jobId);
+                    _scheduler.Dispose();
+                    _scheduler = null;
+
+                }
 
                 if (_playerFile != null)
                 {
@@ -137,6 +140,10 @@ namespace ShedulerLibrary
 
             // Если период стал 'выключено' или имя файла пустое - на выход, тут делать больше нечего.
             if (period == 0 || fileName == string.Empty) return;
+            
+            // Иначе продолжаем и создам шедуллер обратно.
+            if (_scheduler == null)
+                _scheduler = new Scheduler();
 
             // Создаем наш объект проигрывания.
             _playerFile = new PlayWavFile(_logger, fileName);
