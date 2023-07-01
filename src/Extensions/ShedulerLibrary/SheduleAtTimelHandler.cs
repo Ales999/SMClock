@@ -37,7 +37,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CommonLib.Interfaces;
 using ShedulerLibrary.Jobs;
@@ -48,7 +47,6 @@ namespace ShedulerLibrary
 {
     using Caliburn.Micro;
     using System.Threading;
-    using Trigger;
     using Trigger.NET;
     using Trigger.NET.FluentAPI;
 
@@ -103,11 +101,13 @@ namespace ShedulerLibrary
         public SheduleAtTimelHandler(IEventAggregator eventAggregator, CommonLib.Interfaces.ILogger logger)
         {
             _eventAggregator = eventAggregator;
-            //_eventAggregator.Subscribe(this); // Old Caliburn
             _eventAggregator.SubscribeOnPublishedThread(this);
             _logger = logger;
             //_scheduler = new Scheduler();
             jobsDictionary = new Dictionary<Guid, string>();
+#if DEBUG
+            _logger?.Information("--- Enter Ctor SheduleAtTimelHandler ---");
+#endif
         }
 
         #endregion
@@ -129,8 +129,9 @@ namespace ShedulerLibrary
         {
             FileNameToPlay = notification.Message.FileNameToPlay;
             _tsLists = notification.Message.TsLists;
-
-            //_logger?.Information("Create jobs for play file {0}", FileNameToPlay);
+#if DEBUG
+            _logger?.Information("Create jobs for play file {0}", FileNameToPlay);
+#endif
             ConfigureSheduler();
         }
 
