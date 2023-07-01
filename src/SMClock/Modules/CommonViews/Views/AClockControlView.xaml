@@ -1,11 +1,12 @@
 ﻿<UserControl x:Class="AClockLibrary.Views.AClockControlView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:commonViews="clr-namespace:CommonViews"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:local="clr-namespace:AClockLibrary.Views"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:commonViews="clr-namespace:CommonViews"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AClockLibrary.Views"
+        xmlns:controls="clr-namespace:Dnw.AnalogClock.Controls;assembly=Dnw.AnalogClock" d:DataContext="{d:DesignInstance Type=controls:AClockControl}"
              Width="{Binding ActualWidth,
                              Mode=OneWay,
                              RelativeSource={RelativeSource FindAncestor,
@@ -17,6 +18,8 @@
              d:DesignHeight="150"
              d:DesignWidth="150"
              mc:Ignorable="d">
+    
+    <!-- i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" -->
     <!--
     <i:Interaction.Behaviors>
         <commonViews:BindToActualDimensionBehavior ActualHeight="{Binding ActualHeight,

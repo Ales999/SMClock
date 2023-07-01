@@ -78,7 +78,8 @@ namespace SMClock
 
             if (!activate.IsActive)
             {
-                windowManager.ShowWindow(model, context, settings);
+                //windowManager.ShowWindow(model, context, settings); // Old
+                windowManager.ShowWindowAsync(model, context, settings);
                 return;
             }
 

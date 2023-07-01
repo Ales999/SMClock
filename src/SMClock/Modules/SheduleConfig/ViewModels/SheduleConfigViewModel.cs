@@ -494,7 +494,8 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
             if (setAutoStart != null && autoHandler != null)
             {
                 //await mediator.Publish(setAutoStart);
-                _eventAggregator.PublishOnBackgroundThread(setAutoStart);
+                //_eventAggregator.PublishOnBackgroundThread(setAutoStart); // Old Caliburn
+                _eventAggregator.PublishOnBackgroundThreadAsync(setAutoStart);
             }
         }
 
@@ -869,7 +870,8 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
             //mediator.Publish(senDataMsg);
             var perHandle = _container.TryGetInstance<IHandle<IPeriodicPlayDataMsg>>();
             if (perHandle != null)
-                _eventAggregator.PublishOnBackgroundThread(senDataMsg);
+                //_eventAggregator.PublishOnBackgroundThread(senDataMsg); // Old Caliburn
+                _eventAggregator.PublishOnBackgroundThreadAsync(senDataMsg);
         }
 
         /// <summary>
@@ -905,7 +907,8 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
         {
             var clockMsg = new SchedulerDataMsg { PrMessage = prMsg, AtMessage = atMsg };
             //mediator.Publish(clockMsg);
-            _eventAggregator.PublishOnUIThread(clockMsg);
+            //_eventAggregator.PublishOnUIThread(clockMsg); // Old Caliburn
+            _eventAggregator.PublishOnUIThreadAsync(clockMsg);
         }
         #endregion
 

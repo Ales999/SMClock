@@ -53,7 +53,7 @@ namespace SMClockSetup
         /// Версия сборки
         /// For example, if your version 1 uses Version value 1.0.1.0, then version 2 should have a Version value of 1.0.2.0 or higher (1.0.1.1 will not work here!).
         /// </summary>
-        private static readonly Version verApp = new Version(1, 3, 4, 0);
+        private static readonly Version verApp = new Version(1, 3, 5, 0);
 
         /// <summary>
         /// Уникальный идентифиакатор для инсталятора

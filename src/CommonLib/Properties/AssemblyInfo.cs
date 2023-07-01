@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CommonLib")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyProduct("SMClock")]
+[assembly: AssemblyCopyright("Copyright © 2023 Mekhanoshin Alexey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

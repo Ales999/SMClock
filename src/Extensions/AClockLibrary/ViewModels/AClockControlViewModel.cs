@@ -341,12 +341,13 @@ namespace AClockLibrary.ViewModels
         /// <returns></returns>
         private Size MeasureString(string hour, TextBlock txt)
         {
+            //PresentationSource ps = PresentationSource.FromVisual(txt);
             var formattedText = new FormattedText(
                 hour,
                 CultureInfo.CurrentUICulture,
                 FlowDirection.LeftToRight,
                 new Typeface(txt.FontFamily, txt.FontStyle, txt.FontWeight, txt.FontStretch),
-                txt.FontSize, Brushes.Black);
+                txt.FontSize, Brushes.Black, VisualTreeHelper.GetDpi(txt).PixelsPerDip);
 
             return new Size(formattedText.Width, formattedText.Height);
         }

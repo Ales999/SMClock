@@ -47,7 +47,7 @@ using Trigger.NET.Cron;
 namespace ShedulerLibrary
 {
     using Caliburn.Micro;
-
+    using System.Threading;
     using Trigger;
     using Trigger.NET;
     using Trigger.NET.FluentAPI;
@@ -78,7 +78,8 @@ namespace ShedulerLibrary
             if (eventAggregator == null) throw new ArgumentNullException(nameof(eventAggregator));
 
             _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            //_eventAggregator.Subscribe(this); // Old Caliburn
+            _eventAggregator.SubscribeOnPublishedThread(this);
             _logger = logger;
             _scheduler = new Scheduler();
 
@@ -86,7 +87,17 @@ namespace ShedulerLibrary
 
             _logger.Information("--- Enter Ctor SheduleHandler ---");
         }
-        
+
+        public async Task HandleAsync(IPeriodicPlayDataMsg message, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                Handle(message);
+                return Task.CompletedTask;
+            });
+
+        }
+
         /// <summary>
         /// Получатель сообщений от медиатра
         /// </summary>

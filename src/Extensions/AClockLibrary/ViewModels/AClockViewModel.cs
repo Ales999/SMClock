@@ -51,6 +51,7 @@ using StructureMap;
 namespace AClockLibrary.ViewModels
 {
     using Caliburn.Micro;
+    using System.Threading;
 
     public sealed class AClockViewModel : Conductor<object>.Collection.OneActive, IHandle<ISchedulerDataMsg>, IAClock
     {
@@ -79,12 +80,41 @@ namespace AClockLibrary.ViewModels
             //this.MainHeight = 180;
 
             _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            //_eventAggregator.Subscribe(this); // Old Caliburn
+            _eventAggregator.SubscribeOnPublishedThread(this);
             _logger = logger;
             this.DisplayName = "Часы";
 
             _logger.Information("Ctor ---=== AClockViewModel ===--- ");
         }
+
+        #region Handle
+
+        // Срабатывает когда изменяется значение с какой периодичностью проигрывать файл,
+        // В зависимости от вида присылает имя файла (вид периодический или в определннное время)
+        public async Task HandleAsync(ISchedulerDataMsg message, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                this.Handle(message);
+                return Task.CompletedTask;
+            });
+        }
+
+        public void Handle(ISchedulerDataMsg message)
+        {
+            _logger?.Information($"---=== AClockViewModel ===--- Handle: {nameof(AClockViewModel)}");
+
+            if (message.AtMessage != null)
+                AtFile = message.AtMessage.FileNameToPlay;
+
+            if (message.PrMessage != null)
+                PrFile = message.PrMessage.FileName;
+
+        }
+
+        #endregion
+
 
         public void OnClose(EventArgs ea)
         {
@@ -218,7 +248,7 @@ namespace AClockLibrary.ViewModels
                 NotifyOfPropertyChange(() => PrFile);
             }
         }
-        
+
 
         /*
         protected override void OnActivate()
@@ -233,20 +263,7 @@ namespace AClockLibrary.ViewModels
             base.OnDeactivate(close);
         }
         */
-        public void Handle(ISchedulerDataMsg message)
-        {
-            _logger?.Information($"---=== AClockViewModel ===--- Handle: {nameof(AClockViewModel)}");
 
-            if (message.AtMessage != null)
-                AtFile = message.AtMessage.FileNameToPlay;
-
-            if (message.PrMessage != null)
-                PrFile = message.PrMessage.FileName;
-
-        }
-
-
-        
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов

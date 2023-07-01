@@ -47,7 +47,7 @@ using Trigger.NET.Cron;
 namespace ShedulerLibrary
 {
     using Caliburn.Micro;
-
+    using System.Threading;
     using Trigger;
     using Trigger.NET;
     using Trigger.NET.FluentAPI;
@@ -103,7 +103,8 @@ namespace ShedulerLibrary
         public SheduleAtTimelHandler(IEventAggregator eventAggregator, CommonLib.Interfaces.ILogger logger)
         {
             _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            //_eventAggregator.Subscribe(this); // Old Caliburn
+            _eventAggregator.SubscribeOnPublishedThread(this);
             _logger = logger;
             //_scheduler = new Scheduler();
             jobsDictionary = new Dictionary<Guid, string>();
@@ -112,6 +113,17 @@ namespace ShedulerLibrary
         #endregion
 
         #region Handle
+
+        // Срабатывает когда происходят изменения на закладке запуска в определенное время.
+        public async Task HandleAsync(IAtTimePlayDataMsg message, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                this.Handle(message);
+                return Task.CompletedTask;
+            });
+        }
+
 
         public void Handle(IAtTimePlayDataMsg notification)
         {
@@ -232,6 +244,7 @@ namespace ShedulerLibrary
             // TODO: раскомментировать следующую строку, если метод завершения переопределен выше.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
 
     }

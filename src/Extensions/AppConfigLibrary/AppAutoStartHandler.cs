@@ -44,6 +44,7 @@ namespace AppConfigLibrary
 {
     using Caliburn.Micro;
     using CommonLib.Interfaces;
+    using System.Threading;
 
     public class AppAutoStartHandler : IHandle<IAppAutoStartMsg>, IDisposable
     {
@@ -53,14 +54,29 @@ namespace AppConfigLibrary
         public AppAutoStartHandler(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            //_eventAggregator.Subscribe(this); // Old Caliburn - this Obsolete 
+            _eventAggregator.SubscribeOnPublishedThread(this);
         }
+
+        #region Hande
+
         /*
         public AppAutoStartHandler(string appName)
         {
             _appName = appName;
         }
         */
+
+        // Срабатывает
+        public async Task HandleAsync(IAppAutoStartMsg message, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                this.Handle(message);
+                return Task.CompletedTask;
+            });
+        }
+
         public void Handle(IAppAutoStartMsg notification)
         {
             if (notification.UsingAutoStart)
@@ -74,6 +90,8 @@ namespace AppConfigLibrary
                 appstart.RemoveFromAutoStartup(notification.AppName);
             }
         }
+
+        #endregion
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов
@@ -109,6 +127,7 @@ namespace AppConfigLibrary
             // TODO: раскомментировать следующую строку, если метод завершения переопределен выше.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

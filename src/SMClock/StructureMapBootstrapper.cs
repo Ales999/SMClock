@@ -173,6 +173,7 @@ namespace SMClock
             }
         }
 
+        
         private void MyTest() {
 
             //_container = new Container(registry);
@@ -251,15 +252,11 @@ namespace SMClock
         {
             base.OnStartup(sender, e);
 
-            
             var windowManager = ContainerInstance.GetInstance<IWindowManager>();
-            //var tmpClock = ContainerInstance.GetInstance<IAClock>();
-
             var appViewModel = ContainerInstance.GetInstance<ISystemTrayIcon>();
-            
 
-            windowManager.ShowWindow(appViewModel);
-
+            //windowManager.ShowWindow(appViewModel); // Old caliburn
+            windowManager.ShowWindowAsync(appViewModel);
         }
 
         protected override void BuildUp(object instance)

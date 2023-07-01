@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SMClockSetup")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © 2023 Mekhanoshin Alexey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

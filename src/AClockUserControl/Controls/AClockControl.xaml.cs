@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -231,12 +232,13 @@ namespace Dnw.AnalogClock.Controls
         /// <returns></returns>
         private Size MeasureString(string hour, TextBlock txt)
         {
+
             var formattedText = new FormattedText(
                 hour,
                 CultureInfo.CurrentUICulture,
                 FlowDirection.LeftToRight,
                 new Typeface(txt.FontFamily, txt.FontStyle, txt.FontWeight, txt.FontStretch),
-                txt.FontSize, Brushes.Black);
+                txt.FontSize, Brushes.Black, VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
             return new Size(formattedText.Width, formattedText.Height);
         }
