@@ -64,7 +64,8 @@ namespace SMClockSetup
         /// <summary>
         /// Каталог где находится релиз который и будем паковать в инсталятор.
         /// </summary>
-        private const string SRootDir = @"..\src\SMClock\bin\Release";
+        //private const string SRootDir = @"..\src\SMClock\bin\Release";
+        private const string SRootDir = @"..\..\..\src\SMClock\bin\Release";
 
         static int Main()
         {
@@ -99,12 +100,11 @@ namespace SMClockSetup
                     SourceBaseDir = SRootDir,
                     OutFileName = @"Install_SMClock",
                     Encoding = Encoding.UTF8,
-                    Description = @"Analog clock with sound notifications",
+                    //Description = @"Analog clock with sound notifications",
                     LicenceFile = Directory.GetCurrentDirectory() + @"\EULA.rtf",
                     OutDir = "..",
                     Codepage = "1252",
                     Language = "ru-RU",
-                    InstallScope = InstallScope.perUser,
                     MajorUpgrade = new MajorUpgrade
                     {
                         Schedule = UpgradeSchedule.afterInstallValidate, /* .afterInstallInitialize, */
@@ -112,6 +112,8 @@ namespace SMClockSetup
                             "A later version of [ProductName] is already installed. Setup will now exit."
                     }
                 };
+                // Remove:     InstallScope = InstallScope.perUser, // - Not supported by Win4
+
                 // Set Icon's to project for visible in Add-Remove program.
                 project.ControlPanelInfo.ProductIcon = Directory.GetCurrentDirectory() + @"\APP.ico";
 
@@ -149,7 +151,10 @@ namespace SMClockSetup
         private static void Project_WixSourceGenerated(XDocument document)
         {
             var prodElement = document.Root.Select("Product");
-            prodElement.SetAttribute("Manufacturer", "OCS");
+            if (prodElement != null)
+            {
+                prodElement.SetAttribute("Manufacturer", "OCS");
+            }
         }
 
 
