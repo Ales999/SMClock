@@ -67,6 +67,8 @@ namespace SMClockSetup
         //private const string SRootDir = @"..\src\SMClock\bin\Release";
         private const string SRootDir = @"..\..\..\src\SMClock\bin\Release";
 
+        internal static readonly Guid UpgradeCode = new Guid("A9555B8C-2D4B-49B2-8359-7B5481F9379E"); //DO NOT CHANGE UpgradeCode
+
         static int Main()
         {
             // DON'T FORGET to execute "install-package wixsharp" in the package manager console
@@ -97,6 +99,8 @@ namespace SMClockSetup
                     //UI = WUI.WixUI_InstallDir,
                     // ID for installer
                     GUID = guidApp,
+                    ProductId = GuidHelper.GenerateGuid(appName, verApp),
+                    UpgradeCode = UpgradeCode,
                     SourceBaseDir = SRootDir,
                     OutFileName = @"Install_SMClock",
                     Encoding = Encoding.UTF8,
