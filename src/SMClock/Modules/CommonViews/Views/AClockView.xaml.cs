@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AClockLibrary.Views
 {
@@ -23,7 +15,7 @@ namespace AClockLibrary.Views
         public AClockView()
         {
             InitializeComponent();
-            //this.DataContext = this;
+
             try
             {
                 var tryIcon = BitmapFrame.Create(new Uri("pack://application:,,,/CommonViews;component/Icons/btn884.ico"));
@@ -37,10 +29,8 @@ namespace AClockLibrary.Views
                 if(e.InnerException != null)
                     Console.Error.WriteLine(e.InnerException.Message);
             }
-            //this.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/btn884.ico", UriKind.RelativeOrAbsolute));
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //
-            this.ShowInTaskbar = false;
+            ShowInTaskbar = false;
 
         }
 
@@ -48,8 +38,6 @@ namespace AClockLibrary.Views
         {
             SystemCommands.RestoreWindow(this);
             this.WindowState = WindowState.Normal;
-            //this.Activate();
-            //base.Focus();
 
             Dispatcher.BeginInvoke(new Action(delegate
             {
@@ -58,23 +46,24 @@ namespace AClockLibrary.Views
 
         }
 
-        private void window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            AClockData clock = new AClockData();
+            AClockData clock = new AClockData
+            {
+                BackColor = new SolidColorBrush(Colors.Black),
+                TickColor = new SolidColorBrush(Colors.White),
+                TickThicknessDivisor = 130,
+                NumbersColor = new SolidColorBrush(Colors.Yellow),
+                NumbersFontFamily = new FontFamily("Calibri"),
+                NumbersSize = 14
+            };
 
-            clock.BackColor = new SolidColorBrush(Colors.Black);
-            clock.TickColor = new SolidColorBrush(Colors.White);
-            clock.TickThicknessDivisor = 130;
-            clock.NumbersColor = new SolidColorBrush(Colors.Yellow);
-            clock.NumbersFontFamily = new FontFamily("Calibri");
-            clock.NumbersSize = 14;
-
-            clock.HourHand.HandColor = new SolidColorBrush(Colors.LightGray);
+            clock.HourHand.HandColor = new SolidColorBrush(Colors.BlueViolet);
             clock.HourHand.LengthMultiplier = 0.48F;
             clock.HourHand.ThicknessDivisor = 100;
 
-            clock.MinuteHand.HandColor = new SolidColorBrush(Colors.DarkGray);
+            clock.MinuteHand.HandColor = new SolidColorBrush(Colors.GreenYellow);
             clock.MinuteHand.LengthMultiplier = 0.58F;
             clock.MinuteHand.ThicknessDivisor = 150;
 
