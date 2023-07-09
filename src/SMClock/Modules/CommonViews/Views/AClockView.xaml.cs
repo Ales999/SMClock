@@ -55,20 +55,20 @@ namespace AClockLibrary.Views
                 TickColor = new SolidColorBrush(Colors.White),
                 TickThicknessDivisor = 130,
                 NumbersColor = new SolidColorBrush(Colors.Yellow),
-                NumbersFontFamily = new FontFamily("Calibri"),
+                NumbersFontFamily = new FontFamily("Arial"),
                 NumbersSize = 14
             };
 
             clock.HourHand.HandColor = new SolidColorBrush(Colors.BlueViolet);
-            clock.HourHand.LengthMultiplier = 0.48F;
-            clock.HourHand.ThicknessDivisor = 100;
+            clock.HourHand.LengthMultiplier = 0.38F;
+            clock.HourHand.ThicknessDivisor = 80;
 
             clock.MinuteHand.HandColor = new SolidColorBrush(Colors.GreenYellow);
             clock.MinuteHand.LengthMultiplier = 0.58F;
             clock.MinuteHand.ThicknessDivisor = 150;
 
             clock.SecondsHand.HandColor = new SolidColorBrush(Colors.Red);
-            clock.SecondsHand.LengthMultiplier = 0.68F;
+            clock.SecondsHand.LengthMultiplier = 0.86F;
             clock.SecondsHand.ThicknessDivisor = 200;
 
             ClockControl.StartClock(clock);
