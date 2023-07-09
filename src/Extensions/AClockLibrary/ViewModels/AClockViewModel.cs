@@ -116,7 +116,9 @@ namespace AClockLibrary.ViewModels
         #endregion
 
 
+#pragma warning disable IDE0060 // Удалите неиспользуемый параметр
         public void OnClose(EventArgs ea)
+#pragma warning restore IDE0060 // Удалите неиспользуемый параметр
         {
             Dispose();
         }

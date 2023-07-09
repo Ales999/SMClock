@@ -168,8 +168,10 @@ namespace AClockLibrary
         ///</summary>
         public AClockData()
         {
-            HourHand = new HandData(this);
-            HourHand.IsHour = true;
+            HourHand = new HandData(this)
+            {
+                IsHour = true
+            };
             MinuteHand = new HandData(this);
             SecondsHand = new HandData(this);
             CenterX = 0;

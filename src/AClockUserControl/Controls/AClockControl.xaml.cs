@@ -89,8 +89,11 @@ namespace Dnw.AnalogClock.Controls
 
             CheckClockDimension();
 
-            this.mClockTimer = new DispatcherTimer();
-            this.mClockTimer.Interval = TimeSpan.FromMilliseconds(1000);
+            this.mClockTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(1000)
+            };
+
             this.mClockTimer.Tick += ClockTimer_Tick;
             this.mClockTimer.Start();
         }
@@ -178,10 +181,11 @@ namespace Dnw.AnalogClock.Controls
                 FontSize = Clock.NumbersSize,
                 FontFamily = Clock.NumbersFontFamily,
                 Text = text
+                
             };
 
             Size sz = MeasureString(text, txt);
-            txt.Margin = new System.Windows.Thickness(x1 - sz.Width / 2, y1 - sz.Height / 2, x2, y2);
+            txt.Margin = new Thickness(x1 - sz.Width / 2, y1 - sz.Height / 2, x2, y2);
 
             destinationCanvas.Children.Add(txt);
         }

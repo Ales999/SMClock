@@ -16,7 +16,7 @@
     cal:Message.Attach="[Event Closing] = [Action OnClose($eventArgs)]"
     d:DesignHeight="300"
     Icon="/CommonViews;component/Icons/clock.ico"
-    Loaded="window_Loaded"
+    Loaded="Window_Loaded"
     ResizeMode="CanResizeWithGrip"
     Topmost="True"
     mc:Ignorable="d">

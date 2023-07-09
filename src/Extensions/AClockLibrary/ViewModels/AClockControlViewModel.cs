@@ -167,8 +167,10 @@ namespace AClockLibrary.ViewModels
 
             CheckClockDimension();
 
-            this.mClockTimer = new DispatcherTimer();
-            this.mClockTimer.Interval = TimeSpan.FromMilliseconds(1000);
+            this.mClockTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(1000)
+            };
             this.mClockTimer.Tick += ClockTimer_Tick;
             this.mClockTimer.Start();
         }

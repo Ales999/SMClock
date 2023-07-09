@@ -48,49 +48,47 @@ namespace ShedulerLibrary.PlayFile
     {
         private SoundPlayer _soundPlayer;
         private readonly ILogger _logger;
-        private string _fileName { get; set; }
+        private string FileName { get; set; }
 
         /// <summary>
         /// Признак что файл успешно загружен
         /// </summary>
-        private bool goodLoadFile { get; set; }
+        private bool GoodLoadFile { get; set; }
 
         public PlayWavFile(ILogger logger, string fileName)
         {
             this._logger = logger;
-            this._fileName = fileName;
+            this.FileName = fileName;
             // ---------------------
-            goodLoadFile = false;
+            GoodLoadFile = false;
 
             if (File.Exists(fileName))
             {
                 try
                 {
-                    _soundPlayer = new SoundPlayer { SoundLocation = _fileName };
-                    //_soundPlayer.LoadCompleted += _soundPlayer_LoadCompleted;
-                    //_soundPlayer.LoadAsync();
+                    _soundPlayer = new SoundPlayer { SoundLocation = FileName };
                     _soundPlayer.Load();
                 }
                 catch (TimeoutException te)
                 {
-                    goodLoadFile = false;
+                    GoodLoadFile = false;
                     _logger?.Error(te, $"File {fileName} long load");
 
                 }
                 catch (FileNotFoundException fe)
                 {
-                    goodLoadFile = false;
+                    GoodLoadFile = false;
                     _logger?.Error(fe, $"File {fileName} not found");
                 }
                 catch (Exception e)
                 {
-                    goodLoadFile = false;
+                    GoodLoadFile = false;
                     _logger?.Error(e, "Unknown exception PlayWavFile");
                 }
                 finally
                 {
                     _logger?.Information($"File {fileName} successful loaded");
-                    goodLoadFile = true;
+                    GoodLoadFile = true;
                 }
             }
         }
@@ -101,14 +99,14 @@ namespace ShedulerLibrary.PlayFile
             _soundPlayer.LoadAsync();
         }
 
-        private void _soundPlayer_LoadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        private void SoundPlayer_LoadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            this.goodLoadFile = true;
+            this.GoodLoadFile = true;
         }
 
         public void Play()
         {
-            if (_soundPlayer != null && goodLoadFile)
+            if (_soundPlayer != null && GoodLoadFile)
                 _soundPlayer.Play();
         }
 
@@ -123,7 +121,7 @@ namespace ShedulerLibrary.PlayFile
 
         private void PlayFileAction()
         {
-            if (_soundPlayer != null && goodLoadFile)
+            if (_soundPlayer != null && GoodLoadFile)
             {
                 _soundPlayer.Play();
             }

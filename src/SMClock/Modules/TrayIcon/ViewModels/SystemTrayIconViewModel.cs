@@ -46,14 +46,13 @@ namespace SMClock.Modules.TrayIcon.ViewModels
     public class SystemTrayIconViewModel : PropertyChangedBase, ISystemTrayIcon
     {
         private readonly IWindowManager _windowManager;
-        //private readonly IContainer _container;
         private readonly ILogger _logger;
         private readonly ISheduleConfig _sheduleConfig;
         private readonly IAClock _aClock;
 
         //private readonly IEventAggregator _eventAggregator;
-        public SystemTrayIconViewModel(IWindowManager windowManager, /*IContainer container,*/ ILogger logger,
-            ISheduleConfig sheduleConfig ,  IAClock aClock /* , IEventAggregator eventAggregator */ )
+        public SystemTrayIconViewModel(IWindowManager windowManager, ILogger logger,
+            ISheduleConfig sheduleConfig ,  IAClock aClock )
         {
             _windowManager = windowManager;
             //_container = container;
@@ -89,14 +88,10 @@ namespace SMClock.Modules.TrayIcon.ViewModels
         /// <summary>
         /// Using from View: &lt;MenuItem cal:Message.Attach="ExitApplication" Header="Exit" /&gt;
         /// </summary>
-        public /*async*/ void ExitApplication()
+        public void ExitApplication()
         {
-           // await _eventAggregator.PublishOnUIThreadAsync("ExitApp");
-
             Application.Current.Shutdown();
         }
-
-       
 
     }
 }

@@ -120,7 +120,9 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
         private bool _autoStartApp;
 
+#pragma warning disable IDE0060 // Удалите неиспользуемый параметр
         public void OnClose(EventArgs ea)
+#pragma warning restore IDE0060 // Удалите неиспользуемый параметр
         {
             Dispose();
         }
@@ -129,7 +131,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
         /// Признак что пользователь изменил настройки
         /// и можно разблокировать кнопку записи конфигурации
         /// </summary>
-        private bool enableSaveButton
+        private bool EnableSaveButton
         {
             get { return _enableSaveButton; }
             set
@@ -159,7 +161,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
             this.RestoreFromConfig();
 
             // Last - disable SaveButton
-            enableSaveButton = false;
+            EnableSaveButton = false;
             _useNormalWork = true;
 
             if (UsingAtTime && tsList.Count > 0)
@@ -315,35 +317,6 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
         #endregion
 
-        #region IsKeyExists
-
-        /// <summary>
-        /// Проверить есть-ли такое строковое значение по ключу.
-        /// </summary>
-        /// <param name="key">Строковый ключь</param>
-        /// <param name="value">Возврат в данную переменную по значению</param>
-        /// <returns>true если найдено</returns>
-        [Obsolete("Use TryGetValue")]
-        private bool IsKeyExist(string key, out object value)
-        {
-            try
-            {
-                value = _appConfig[key];
-                return true;
-            }
-            catch (Exception exception)
-            {
-                _logger.TraceApi(this.GetType().Name, "IsKeyExist", App.StartAppDateTime - DateTime.Now, exception.Message);
-                if (exception.InnerException != null)
-                {
-                    _logger.Information($"Inner Exception: {exception.InnerException.Message}");
-                }
-                value = null;
-            }
-            return false;
-        }
-
-        #endregion
 
         #region Methods to Binding
 
@@ -359,7 +332,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
             }
 
             _appConfig.SaveConfig();
-            enableSaveButton = false;
+            EnableSaveButton = false;
             GC.Collect();
         }
 
@@ -367,7 +340,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
         /// Если false - блокируеи кнопку с именем SaveConfig
         /// </summary>
         /// <returns></returns>
-        public bool CanSaveConfig => enableSaveButton;
+        public bool CanSaveConfig => EnableSaveButton;
         #endregion
 
         #region TextBox for path and file name for play every time
@@ -387,7 +360,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _playFileEveryTime = value;
                 _appConfig[nameof(PlayFileEveryTime)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 this.SendMsgPeriodicTimeList(SelectedPeriodicTimeList);
                 NotifyOfPropertyChange(() => PlayFileEveryTime);
 
@@ -445,7 +418,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
                 _selectedPeriodTime = value;
                 _appConfig[nameof(SelectedPeriodicTimeList)] = value;
                 this.SendMsgPeriodicTimeList(value);
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 NotifyOfPropertyChange(() => SelectedPeriodicTimeList);
             }
         }
@@ -468,7 +441,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _autoStartApp = value;
                 _appConfig[nameof(AutoStartApp)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 // Установим признак что при записи конфигурации необходимо сохранит статус автозапуска в реестор
                 _neededSendMsgForSetAutoStartApp = true;
                 NotifyOfPropertyChange(() => AutoStartApp);
@@ -512,7 +485,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _playFileAtTime = value;
                 _appConfig[nameof(PlayFileAtTime)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 NotifyOfPropertyChange(() => PlayFileAtTime);
             }
         }
@@ -547,7 +520,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _usingAtTime = value;
                 _appConfig[nameof(UsingAtTime)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 //
                 SendUpdateAtTimes(value ? tsList : _clrarTsList);
 
@@ -574,7 +547,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _at1Box = value;
                 _appConfig[nameof(At1Box)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 // If Checked
                 if (!string.IsNullOrEmpty(_oneDt))
                 {
@@ -616,7 +589,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _at2Box = value;
                 _appConfig[nameof(At2Box)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (!string.IsNullOrEmpty(_twoDt))
                 {
@@ -658,7 +631,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _at3Box = value;
                 _appConfig[nameof(At3Box)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (!string.IsNullOrEmpty(_threeDt))
                 {
@@ -699,7 +672,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _at4Box = value;
                 _appConfig[nameof(At4Box)] = value;
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (!string.IsNullOrEmpty(_fourDt))
                 {
@@ -749,7 +722,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _oneDt = value;
                 _appConfig[nameof(OneDT)] = ConvLocalToUtc(value);
-                enableSaveButton = true;
+                EnableSaveButton = true;
                 if (UsingAtTime)
                     this.SendUpdateAtTimes(tsList);
                 NotifyOfPropertyChange(() => OneDT);
@@ -777,7 +750,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _twoDt = value;
                 _appConfig[nameof(TwoDT)] = ConvLocalToUtc(value);
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (UsingAtTime)
                     this.SendUpdateAtTimes(tsList);
@@ -807,7 +780,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _threeDt = value;
                 _appConfig[nameof(ThreeDT)] = ConvLocalToUtc(value);
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (UsingAtTime)
                     this.SendUpdateAtTimes(tsList);
@@ -837,7 +810,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
                 _fourDt = value;
                 _appConfig[nameof(FourDT)] = ConvLocalToUtc(value);
-                enableSaveButton = true;
+                EnableSaveButton = true;
 
                 if (UsingAtTime)
                     this.SendUpdateAtTimes(tsList);
