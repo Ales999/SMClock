@@ -149,7 +149,7 @@
     <Folder Include="Modules\TrayIcon\Views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpConfig\SharpConfig\SharpConfig.csproj">
+    <ProjectReference Include="..\..\SharpConfig\SharpConfig.csproj">
       <Project>{85c815fa-63ea-48d2-ac32-e0bf2c4f6858}</Project>
       <Name>SharpConfig</Name>
     </ProjectReference>
