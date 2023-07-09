@@ -125,6 +125,8 @@
   -->
   <UsingTask AssemblyFile="$(SolutionDir)packages\WixSharp.1.4.6.2\build\SetEnvVar.dll" TaskName="SetEnvVar" />
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)</PostBuildEvent>
+    <PostBuildEvent>cd $(SolutionDir)
+$(TargetDir)$(TargetFileName)
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
