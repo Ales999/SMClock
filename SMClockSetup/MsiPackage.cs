@@ -110,6 +110,13 @@ namespace SMClockSetup
                         DowngradeErrorMessage =
                             "A later version of [ProductName] is already installed. Setup will now exit."
                     },
+                    /*MajorUpgradeStrategy = new MajorUpgradeStrategy
+                    {
+                        RemoveExistingProductAfter = Step.InstallInitialize,
+                        UpgradeVersions = VersionRange.OlderThanThis,
+                        PreventDowngradingVersions = VersionRange.NewerThanThis,
+                        NewerProductInstalledErrorMessage = "."
+                    },*/
                     LocalizationFile = Path.Combine(itemsDir, "Resources", "WixUI_ru-ru.wxl"),
                     //Description = @"Analog clock with sound notifications", // waiting next release WiX
                     //InstallScope = InstallScope.perUser, // - Not supported by Win4!

@@ -49,7 +49,7 @@ namespace SMClockSetup
 
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
            string currentDir = Directory.GetCurrentDirectory();
            Compiler.EmitRelativePaths = false;
@@ -60,7 +60,7 @@ namespace SMClockSetup
         }
         private static void Run(string currentDir)
         {
-            Version versionApp = new Version(1, 3, 5, 1);
+            Version versionApp = new Version(1, 3, 6, 0);
 
             /// <summary>
             /// Каталог где находится релиз который и будем паковать в инсталятор.
