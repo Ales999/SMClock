@@ -45,6 +45,7 @@ using File = WixSharp.File;
 
 namespace SMClockSetup
 {
+    [Obsolete]
     class Script
     {
         private const string appName = "SMClock";
@@ -105,15 +106,16 @@ namespace SMClockSetup
                     OutFileName = @"Install_SMClock",
                     Encoding = Encoding.UTF8,
                     //Description = @"Analog clock with sound notifications",
+                    //InstallScope = InstallScope.perUser, // - Not supported by Win4
                     LicenceFile = Directory.GetCurrentDirectory() + @"\EULA.rtf",
                     OutDir = "..",
                     Codepage = "1252",
                     Language = "ru-RU",
                     MajorUpgrade = new MajorUpgrade
                     {
-                        Schedule = UpgradeSchedule.afterInstallValidate, /* .afterInstallInitialize, */
-                        DowngradeErrorMessage =
-                            "A later version of [ProductName] is already installed. Setup will now exit."
+                        AllowSameVersionUpgrades = true,
+                        Schedule = UpgradeSchedule.afterInstallInitialize,
+                        DowngradeErrorMessage = "A later version of [ProductName] is already installed. Setup will now exit."
                     }
                 };
                 // Remove:     InstallScope = InstallScope.perUser, // - Not supported by Win4
