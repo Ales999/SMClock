@@ -87,7 +87,6 @@
     <Compile Include="GuidHelper.cs" />
     <Compile Include="MsiPackage.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Script.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="EULA.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
