@@ -56,33 +56,20 @@ namespace AClockLibrary.ViewModels
     public sealed class AClockViewModel : Conductor<object>.Collection.OneActive, IHandle<ISchedulerDataMsg>, IAClock
     {
         
-        //public new string DisplayName = "Аналоговые Часы";
         public override string DisplayName { get; set; }
 
-        #region Singlton
-        /*
-        private static readonly Lazy<AClockViewModel> lazy = new Lazy<AClockViewModel>(() => new AClockViewModel());
-        private static AClockViewModel Instance => lazy.Value;
-
-        private AClockViewModel() { }
-        */
-        #endregion
-
-        //private IWindowManager _windowManager;
         private readonly IEventAggregator _eventAggregator;
         private readonly ILogger _logger;
 
 
         public AClockViewModel(IEventAggregator eventAggregator, ILogger logger)
         {
-            //TestVM = theTest;
-            //this.MainWidth = 180;
-            //this.MainHeight = 180;
-
             _eventAggregator = eventAggregator;
-            //_eventAggregator.Subscribe(this); // Old Caliburn
             _eventAggregator.SubscribeOnPublishedThread(this);
-            _logger = logger;
+            if (logger != null)
+            {
+                _logger = logger;
+            }
             this.DisplayName = "Часы";
 
             _logger.Information("Ctor ---=== AClockViewModel ===--- ");
@@ -123,105 +110,6 @@ namespace AClockLibrary.ViewModels
             Dispose();
         }
 
-        /*
-
-        private double _mainWidth;
-        private double _mainHeight;
-
-
-        //public TestViewModel TestVM { get; set; }
-        public AClockControlViewModel AClockControlModel { get; private set; }
-
-        public void EvntChangeSize(double width, double height)
-        {
-           AClockControlModel.ActualWidth = width;
-           this.MainWidth = width;
-           AClockControlModel.ActualHeight = height;
-           this.MainHeight = height;
-        }
-
-        public void LoadedAction(double width, double height)
-        {
-            AClockControlModel.ActualWidth = width;
-            AClockControlModel.ActualHeight = height;
-        }
-
-        public double MainWidth
-        {
-            get { return _mainWidth; }
-            set
-            {
-                if (value.Equals(_mainWidth)) return;
-                _mainWidth = value;
-                NotifyOfPropertyChange(() => MainWidth);
-            }
-        }
-
-        public double MainHeight
-        {
-            get { return _mainHeight; }
-            set
-            {
-                if (value.Equals(_mainHeight)) return;
-                _mainHeight = value;
-                NotifyOfPropertyChange(() => MainHeight);
-            }
-        }
-
-        public AClockViewModel(IEventAggregator eventAggregator, ILogger logger, AClockControlViewModel aclockControlModel)
-        {
-            //TestVM = theTest;
-            this.MainWidth = 180;
-            this.MainHeight = 180;
-
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
-            _logger = logger;
-
-            AClockControlModel = aclockControlModel;
-            aclockControlModel.ActualHeight = this.MainHeight;
-            aclockControlModel.ActualWidth  = this.MainWidth;
-
-            _atFile = "AtFile this";
-            _prFile = "PrFile this";
-
-            _logger.Information("Ctor ---=== AClockViewModel ===--- ");
-
-            AClockData clockData = new AClockData
-            {
-                BackColor = new SolidColorBrush(Colors.Black),
-                TickColor = new SolidColorBrush(Colors.White),
-                TickThicknessDivisor = 130,
-                NumbersColor = new SolidColorBrush(Colors.Yellow),
-                NumbersFontFamily = new FontFamily("Calibri"),
-                NumbersSize = 14,
-                HourHand =
-                {
-                    HandColor = new SolidColorBrush(Colors.LightGray),
-                    LengthMultiplier = 0.48F,
-                    ThicknessDivisor = 100
-                },
-                MinuteHand =
-                {
-                    HandColor = new SolidColorBrush(Colors.DarkGray),
-                    LengthMultiplier = 0.58F,
-                    ThicknessDivisor = 150
-                },
-                SecondsHand =
-                {
-                    HandColor = new SolidColorBrush(Colors.Red),
-                    LengthMultiplier = 0.68F,
-                    ThicknessDivisor = 200
-                }
-            };
-
-            AClockControlModel.StartClock(clockData);
-
-        }
-
-        //public AClockControlViewModel AClockControl { get; set; }
-
-*/
         private string _atFile;
         private string _prFile;
 
@@ -234,6 +122,7 @@ namespace AClockLibrary.ViewModels
             set
             {
                 if (value.Equals(_atFile)) return;
+
                 _atFile = value;
                 NotifyOfPropertyChange(() => AtFile);
             }
@@ -250,21 +139,6 @@ namespace AClockLibrary.ViewModels
                 NotifyOfPropertyChange(() => PrFile);
             }
         }
-
-
-        /*
-        protected override void OnActivate()
-        {
-            _eventAggregator.Subscribe(this);
-            base.OnActivate();
-        }
-
-        protected override void OnDeactivate(bool close)
-        {
-            _eventAggregator.Unsubscribe(this);
-            base.OnDeactivate(close);
-        }
-        */
 
 
         #region IDisposable Support
