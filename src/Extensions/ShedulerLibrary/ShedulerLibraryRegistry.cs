@@ -52,11 +52,8 @@ namespace ShedulerLibrary
     {
         public ShedulerLibraryRegistry()
         {
-            //For<IShedule>().Use<Shedule>().Singleton();
            For<IHandle<IPeriodicPlayDataMsg>>().Use<SheduleIntervalHandler>().Singleton();
            For<IHandle<IAtTimePlayDataMsg>>().Use<SheduleAtTimelHandler>().Singleton();
-
-            //For<IHandle<IPeriodicPlayData>>()
         }
     }
 }

@@ -89,7 +89,7 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
         #region Binding Fuleds
 
         // ------------ Binding fiels----------------------------------
-        // Общиая кнопка на все вкладки типа
+        // Общая кнопка на все вкладки типа
         private bool _enableSaveButton;
         // Первая вкладка
         private string _playFileEveryTime;
@@ -840,7 +840,6 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
             //mediator.Publish(senDataMsg);
             var perHandle = _container.TryGetInstance<IHandle<IPeriodicPlayDataMsg>>();
             if (perHandle != null)
-                //_eventAggregator.PublishOnBackgroundThread(senDataMsg); // Old Caliburn
                 _eventAggregator.PublishOnBackgroundThreadAsync(senDataMsg);
         }
 
@@ -865,7 +864,6 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
 
             SendToAclockMessage(null, atData);
 
-            //mediator.Publish(atMessage);
             // Пробуем запросить нашего работника, в если удачно - пересылаему ему задачу
             var atHandle = _container.TryGetInstance<IHandle<IAtTimePlayDataMsg>>();
             if (atHandle != null)
@@ -876,8 +874,6 @@ namespace SMClock.Modules.SheduleConfig.ViewModels
         protected virtual void SendToAclockMessage(IPeriodicPlayData prMsg, IAtTimePlayData atMsg)
         {
             var clockMsg = new SchedulerDataMsg { PrMessage = prMsg, AtMessage = atMsg };
-            //mediator.Publish(clockMsg);
-            //_eventAggregator.PublishOnUIThread(clockMsg); // Old Caliburn
             _eventAggregator.PublishOnUIThreadAsync(clockMsg);
         }
         #endregion

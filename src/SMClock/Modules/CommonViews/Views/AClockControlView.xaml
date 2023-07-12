@@ -15,41 +15,15 @@
                               Mode=OneWay,
                               RelativeSource={RelativeSource FindAncestor,
                                                              AncestorType={x:Type local:AClockView}}}"
-             d:DesignHeight="150"
-             d:DesignWidth="150"
+             d:DesignHeight="280"
+             d:DesignWidth="280"
              mc:Ignorable="d">
     
-    <!-- i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" -->
-    <!--
-    <i:Interaction.Behaviors>
-        <commonViews:BindToActualDimensionBehavior ActualHeight="{Binding ActualHeight,
-                                                                          Mode=OneWay,
-                                                                          RelativeSource={RelativeSource FindAncestor,
-                                                                                                         AncestorType={x:Type local:AClockView}}}"
-                                                   ActualWidth="{Binding ActualWidth,
-                                                                         Mode=OneWay,
-                                                                         RelativeSource={RelativeSource FindAncestor,
-                                                                                                        AncestorType={x:Type local:AClockView}}}"
-                                                   SourceControl="{Binding Mode=OneWay,
-                                                                           RelativeSource={RelativeSource FindAncestor,
-                                                                                                          AncestorType={x:Type local:AClockView}}}" />
-    </i:Interaction.Behaviors>
-    -->
-
-
     <Grid Background="{Binding Clock.BackColor}">
 
-
-        <!--
-            <Button HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Click Me" />-->
         <Canvas x:Name="TickCanvas"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
-
-
-        <!--  Name="HandsCanvas"  -->
         <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
             <Line Stroke="{Binding Clock.HourHand.HandColor}"
                   StrokeThickness="{Binding Clock.HourHand.HandThickness}"

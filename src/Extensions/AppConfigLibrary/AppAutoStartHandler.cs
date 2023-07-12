@@ -54,7 +54,6 @@ namespace AppConfigLibrary
         public AppAutoStartHandler(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            //_eventAggregator.Subscribe(this); // Old Caliburn - this Obsolete 
             _eventAggregator.SubscribeOnPublishedThread(this);
         }
 
