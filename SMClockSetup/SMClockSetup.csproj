@@ -14,6 +14,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -69,17 +69,23 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WixSharp, Version=1.20.3.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\WixSharp_wix4.bin.1.21.0-pre\lib\WixSharp.dll</HintPath>
+    <Reference Include="WixSharp, Version=2.0.1.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp_wix4.bin.2.0.1\lib\WixSharp.dll</HintPath>
     </Reference>
-    <Reference Include="WixSharp.Msi, Version=1.20.3.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\WixSharp_wix4.bin.1.21.0-pre\lib\WixSharp.Msi.dll</HintPath>
+    <Reference Include="WixSharp.Msi, Version=2.0.1.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp_wix4.bin.2.0.1\lib\WixSharp.Msi.dll</HintPath>
     </Reference>
-    <Reference Include="WixSharp.UI, Version=1.20.3.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\WixSharp_wix4.bin.1.21.0-pre\lib\WixSharp.UI.dll</HintPath>
+    <Reference Include="WixSharp.UI, Version=2.0.1.0, Culture=neutral, PublicKeyToken=3775edd25acc43c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp_wix4.bin.2.0.1\lib\WixSharp.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="WixSharp.UI.WPF, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixSharp_wix4.bin.2.0.1\lib\WixSharp.UI.WPF.dll</HintPath>
     </Reference>
     <Reference Include="WixToolset.Dtf.WindowsInstaller, Version=4.0.0.0, Culture=neutral, PublicKeyToken=a7d136314861246c, processorArchitecture=MSIL">
       <HintPath>..\packages\WixToolset.Dtf.WindowsInstaller.4.0.1\lib\net20\WixToolset.Dtf.WindowsInstaller.dll</HintPath>
+    </Reference>
+    <Reference Include="WixToolset.Mba.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=a7d136314861246c, processorArchitecture=MSIL">
+      <HintPath>..\packages\WixToolset.Mba.Core.4.0.1\lib\net20\WixToolset.Mba.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +130,7 @@
   <UsingTask AssemblyFile="$(SolutionDir)packages\WixSharp.1.4.6.2\build\SetEnvVar.dll" TaskName="SetEnvVar" />
   <PropertyGroup>
     <PostBuildEvent>cd $(SolutionDir)
+set ide=true
 $(TargetDir)$(TargetFileName)
 </PostBuildEvent>
   </PropertyGroup>

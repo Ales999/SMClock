@@ -35,17 +35,12 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WixSharp;
-using static WixSharp.Nsis.Compressor;
 
 namespace SMClockSetup
 {
-    
+
 
     internal class Program
     {
@@ -60,7 +55,7 @@ namespace SMClockSetup
         }
         private static void Run(string currentDir)
         {
-            Version versionApp = new Version(1, 3, 7, 0);
+            Version versionApp = new Version(1, 3, 8, 1);
 
             /// <summary>
             /// Каталог где находится релиз который и будем паковать в инсталятор.

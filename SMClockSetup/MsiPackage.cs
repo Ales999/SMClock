@@ -103,6 +103,7 @@ namespace SMClockSetup
                     Encoding = Encoding.UTF8,
                     Codepage = "1251",
                     Language = "ru-ru",
+                    Description = @"Analog clock with sound notifications",
                     UpgradeCode = UpgradeCode,
                     MajorUpgrade = new MajorUpgrade
                     {
@@ -118,11 +119,13 @@ namespace SMClockSetup
                         NewerProductInstalledErrorMessage = "."
                     },*/
                     LocalizationFile = Path.Combine(itemsDir, "Resources", "WixUI_ru-ru.wxl"),
-                    //Description = @"Analog clock with sound notifications", // waiting next release WiX
                     //InstallScope = InstallScope.perUser, // - Not supported by Win4!
                 };
             // ---
             managedProject.ControlPanelInfo.ProductIcon = Path.Combine(Directory.GetCurrentDirectory(), @"SMClockSetup\APP.ico");
+            
+            // Set x64 platform - Instal project to x64 'Program Files'
+            managedProject.Platform = Platform.x64;
 
             managedProject.ResolveWildCards()
             .FindFile((f) => f.Name.EndsWith("SMClock.exe"))
