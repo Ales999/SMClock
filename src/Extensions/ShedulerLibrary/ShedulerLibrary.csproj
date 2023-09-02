@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShedulerLibrary</RootNamespace>
     <AssemblyName>ShedulerLibraryExtension</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -39,8 +39,8 @@
       <HintPath>..\..\..\packages\Caliburn.Micro.Core.4.0.212\lib\netstandard2.0\Caliburn.Micro.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NCrontab, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NCrontab.3.3.1\lib\net35\NCrontab.dll</HintPath>
+    <Reference Include="NCrontab, Version=3.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NCrontab.3.3.3\lib\net35\NCrontab.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>

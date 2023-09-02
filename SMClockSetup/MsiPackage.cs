@@ -103,21 +103,14 @@ namespace SMClockSetup
                     Encoding = Encoding.UTF8,
                     Codepage = "1251",
                     Language = "ru-ru",
-                    Description = @"Analog clock with sound notifications",
+                    Description = @"Аналоговые часики с звуковым уведомлением по расписанию",
                     UpgradeCode = UpgradeCode,
                     MajorUpgrade = new MajorUpgrade
                     {
-                        Schedule = UpgradeSchedule.afterInstallValidate, /* .afterInstallInitialize, */
+                        Schedule = UpgradeSchedule.afterInstallInitialize,
                         DowngradeErrorMessage =
-                            "A later version of [ProductName] is already installed. Setup will now exit."
+                            "Последняя версия [ProductName] уже установлена. Установка отменена."
                     },
-                    /*MajorUpgradeStrategy = new MajorUpgradeStrategy
-                    {
-                        RemoveExistingProductAfter = Step.InstallInitialize,
-                        UpgradeVersions = VersionRange.OlderThanThis,
-                        PreventDowngradingVersions = VersionRange.NewerThanThis,
-                        NewerProductInstalledErrorMessage = "."
-                    },*/
                     LocalizationFile = Path.Combine(itemsDir, "Resources", "WixUI_ru-ru.wxl"),
                     //InstallScope = InstallScope.perUser, // - Not supported by Win4!
                 };
