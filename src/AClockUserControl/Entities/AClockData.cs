@@ -1,6 +1,6 @@
-﻿using System;
+﻿
+using System;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Media;
 
 namespace Dnw.AnalogClock.Entities

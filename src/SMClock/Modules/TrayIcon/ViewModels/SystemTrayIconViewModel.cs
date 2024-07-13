@@ -46,7 +46,7 @@ namespace SMClock.Modules.TrayIcon.ViewModels
     public class SystemTrayIconViewModel : PropertyChangedBase, ISystemTrayIcon
     {
         private readonly IWindowManager _windowManager;
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
         private readonly ISheduleConfig _sheduleConfig;
         private readonly IAClock _aClock;
 
@@ -56,7 +56,7 @@ namespace SMClock.Modules.TrayIcon.ViewModels
         {
             _windowManager = windowManager;
             //_container = container;
-            _logger = logger;
+            //_logger = logger;
             _sheduleConfig = sheduleConfig;
             _aClock = aClock;
             //_aClock = (IAClock)aScreen;

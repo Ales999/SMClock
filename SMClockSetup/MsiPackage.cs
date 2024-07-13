@@ -35,16 +35,10 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WixSharp;
-using WixSharp.CommonTasks;
-using WixSharp.Forms;
 using File = WixSharp.File;
 
 

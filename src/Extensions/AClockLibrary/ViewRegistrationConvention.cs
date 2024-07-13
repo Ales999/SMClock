@@ -35,7 +35,6 @@
 */
 
 using System;
-using Caliburn.Micro;
 using StructureMap;
 using StructureMap.Graph.Scanning;
 using StructureMap.Pipeline;
