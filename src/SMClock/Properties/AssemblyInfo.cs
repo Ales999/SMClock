@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OCS")]
 [assembly: AssemblyProduct("SMClock")]
-[assembly: AssemblyCopyright("Copyright © 2023 Mekhanoshin Alexey")]
+[assembly: AssemblyCopyright("Copyright © 2025 Mekhanoshin Alexey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,7 +51,7 @@ using System.Windows;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.11.0")]
-[assembly: AssemblyFileVersion("1.3.11.0")]
+[assembly: AssemblyVersion("1.3.12.0")]
+[assembly: AssemblyFileVersion("1.3.12.0")]
 [assembly: Guid("D6F2DF9B-20FC-41D9-8468-A37A592FC372")]
 

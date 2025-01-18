@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dotnetwork.it")]
 [assembly: AssemblyProduct("Dnw.AnalogClock")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2025 Mekhanoshin Alexey")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
