@@ -122,7 +122,7 @@
                                     Text="{Binding OneDT, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="Visible"
                                     Watermark="00:00"
-                                    Value="2017-01-01">
+                                    Value="0:00">
                                     <xctk:DateTimeUpDown.IsEnabled>
                                         <MultiBinding Converter="{StaticResource booleanAndConverter}">
                                             <Binding ElementName="At1Box" Path="IsChecked" />
@@ -153,7 +153,7 @@
                                     Text="{Binding TwoDT, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="Visible"
                                     Watermark="00:00"
-                                    Value="2017-01-01">
+                                    Value="0:00">
                                     <xctk:DateTimeUpDown.IsEnabled>
                                         <MultiBinding Converter="{StaticResource booleanAndConverter}">
                                             <Binding ElementName="At2Box" Path="IsChecked" />
@@ -185,7 +185,7 @@
                                     Text="{Binding ThreeDT, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="Visible"
                                     Watermark="00:00"
-                                    Value="2017-01-01">
+                                    Value="0:00">
                                     <xctk:DateTimeUpDown.IsEnabled>
                                         <MultiBinding Converter="{StaticResource booleanAndConverter}">
                                             <Binding ElementName="At3Box" Path="IsChecked" />
@@ -218,7 +218,7 @@
                                     Text="{Binding FourDT, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="Visible"
                                     Watermark="00:00"
-                                    Value="2017-01-01">
+                                    Value="0:00">
                                     <xctk:DateTimeUpDown.IsEnabled>
                                         <MultiBinding Converter="{StaticResource booleanAndConverter}">
                                             <Binding ElementName="At4Box" Path="IsChecked" />

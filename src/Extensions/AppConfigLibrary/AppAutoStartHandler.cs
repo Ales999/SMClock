@@ -63,7 +63,7 @@ namespace AppConfigLibrary
         }
         */
 
-        // Срабатывает
+        // Срабатывает при сохранении настроек
         public async Task HandleAsync(IAppAutoStartMsg message, CancellationToken cancellationToken)
         {
             await Task.Run(() =>
