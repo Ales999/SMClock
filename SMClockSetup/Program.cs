@@ -55,7 +55,7 @@ namespace SMClockSetup
         }
         private static void Run(string currentDir)
         {
-            Version versionApp = new Version(1, 3, 13, 0);
+            Version versionApp = new Version(1, 3, 14, 0);
 
             /// <summary>
             /// Каталог где находится релиз который и будем паковать в инсталятор.
