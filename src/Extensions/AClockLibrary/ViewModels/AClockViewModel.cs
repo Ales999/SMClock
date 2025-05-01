@@ -71,33 +71,51 @@ namespace AClockLibrary.ViewModels
                 _logger = logger;
             }
             this.DisplayName = "Часы";
-
             _logger.Information("Ctor ---=== AClockViewModel ===--- ");
         }
 
         #region Handle
 
+        // Для предотвращения избыточных вызовов когда быстро меняем значения зажав ЛКМ
+        private bool isHandle = false;
+        private bool IsHandle
+        {
+            get
+            {
+                return isHandle;
+            }
+            set
+            {
+                if (isHandle == value) return;
+                isHandle = value;
+            }
+        }
+
         // Срабатывает когда изменяется значение с какой периодичностью проигрывать файл,
         // В зависимости от вида присылает имя файла (вид периодический или в определннное время)
         public async Task HandleAsync(ISchedulerDataMsg message, CancellationToken cancellationToken)
         {
-            await Task.Run(() =>
-            {
-                this.Handle(message);
-                return Task.CompletedTask;
-            });
+            if (!IsHandle) {
+                await Task.Run(() =>
+                {
+                    IsHandle = true;
+                    this.Handle(message);
+                    IsHandle = false;
+                    return Task.CompletedTask;
+                });
+            }
         }
 
         public void Handle(ISchedulerDataMsg message)
         {
+#if DEBUG
             _logger?.Information($"---=== AClockViewModel ===--- Handle: {nameof(AClockViewModel)}");
-
+#endif
             if (message.AtMessage != null)
                 AtFile = message.AtMessage.FileNameToPlay;
 
             if (message.PrMessage != null)
                 PrFile = message.PrMessage.FileName;
-
         }
 
         #endregion
@@ -139,7 +157,6 @@ namespace AClockLibrary.ViewModels
                 NotifyOfPropertyChange(() => PrFile);
             }
         }
-
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов

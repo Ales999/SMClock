@@ -112,14 +112,32 @@ namespace ShedulerLibrary
 
         #endregion
 
+        private bool isHandle;
+
+        private bool IsHandle
+        {
+            get
+            {
+                return isHandle;
+            }
+            set
+            {
+                if (isHandle == value) return;
+                isHandle = value;
+            }
+        }
+
         #region Handle
 
         // Срабатывает когда происходят изменения на закладке запуска в определенное время.
         public async Task HandleAsync(IAtTimePlayDataMsg message, CancellationToken cancellationToken)
         {
+            if (IsHandle) return;
             await Task.Run(() =>
             {
+                IsHandle = true;
                 this.Handle(message);
+                IsHandle = false;
                 return Task.CompletedTask;
             });
         }
@@ -189,7 +207,9 @@ namespace ShedulerLibrary
                         .UseCron(CrontabPatterns.GetConcretePatterns(timeAt)).WithParameter(_playerFile));
 
                     jobsDictionary.Add(newGuid, timeAt);
+#if DEBUG
                     _logger.Information($"Create Job for {timeAt} by GUID: {newGuid}, with play file: {FileNameToPlay}");
+#endif
                 }
                 _neededChangeJob = true;
             }
