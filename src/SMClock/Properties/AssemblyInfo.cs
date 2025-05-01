@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("SMClock")]
 [assembly: AssemblyDescription("Analog clock with sound notifications")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("OCS")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SMClock")]
 [assembly: AssemblyCopyright("Copyright © 2025 Mekhanoshin Alexey")]
 [assembly: AssemblyTrademark("")]
@@ -51,7 +51,7 @@ using System.Windows;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.13.0")]
-[assembly: AssemblyFileVersion("1.3.13.0")]
+[assembly: AssemblyVersion("1.3.14.0")]
+[assembly: AssemblyFileVersion("1.3.14.0")]
 [assembly: Guid("D6F2DF9B-20FC-41D9-8468-A37A592FC372")]
-
+[assembly: NeutralResourcesLanguage("ru-RU")]
