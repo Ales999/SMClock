@@ -55,7 +55,7 @@ namespace AClockLibrary.ViewModels
 
     public sealed class AClockViewModel : Conductor<object>.Collection.OneActive, IHandle<ISchedulerDataMsg>, IAClock
     {
-        
+
         public override string DisplayName { get; set; }
 
         private readonly IEventAggregator _eventAggregator;
@@ -76,40 +76,21 @@ namespace AClockLibrary.ViewModels
 
         #region Handle
 
-        // Для предотвращения избыточных вызовов когда быстро меняем значения зажав ЛКМ
-        private bool isHandle = false;
-        private bool IsHandle
-        {
-            get
-            {
-                return isHandle;
-            }
-            set
-            {
-                if (isHandle == value) return;
-                isHandle = value;
-            }
-        }
-
         // Срабатывает когда изменяется значение с какой периодичностью проигрывать файл,
         // В зависимости от вида присылает имя файла (вид периодический или в определннное время)
         public async Task HandleAsync(ISchedulerDataMsg message, CancellationToken cancellationToken)
         {
-            if (!IsHandle) {
-                await Task.Run(() =>
-                {
-                    IsHandle = true;
-                    this.Handle(message);
-                    IsHandle = false;
-                    return Task.CompletedTask;
-                });
-            }
+            await Task.Run(() =>
+            {
+                this.Handle(message);
+                return Task.CompletedTask;
+            });
         }
 
         public void Handle(ISchedulerDataMsg message)
         {
 #if DEBUG
-            _logger?.Information($"---=== AClockViewModel ===--- Handle: {nameof(AClockViewModel)}");
+            // _logger?.Information($"---=== AClockViewModel ===--- Handle: {nameof(AClockViewModel)}");
 #endif
             if (message.AtMessage != null)
                 AtFile = message.AtMessage.FileNameToPlay;

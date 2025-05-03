@@ -62,6 +62,14 @@ namespace ShedulerLibrary
         private string _fileNameToPlay;
         private List<string> _tsLists;
 
+        // ---
+
+        private readonly object _lock = new object();
+        private readonly Timer _timer;
+        private IAtTimePlayDataMsg _lastMessage;
+        private const int IntervalMs = 2000; // 2 секунды
+        private bool _isThrottled = false;
+
 
         /// <summary>
         /// Признак что нужно пересозать Job-ы
@@ -105,6 +113,8 @@ namespace ShedulerLibrary
             _logger = logger;
             //_scheduler = new Scheduler();
             jobsDictionary = new Dictionary<Guid, string>();
+            // Перезапускаемый таймер для HandleAsync
+            _timer = new Timer(HandleTimerCallback, null, Timeout.Infinite, Timeout.Infinite);
 #if DEBUG
             _logger?.Information("--- Enter Ctor SheduleAtTimelHandler ---");
 #endif
@@ -112,34 +122,51 @@ namespace ShedulerLibrary
 
         #endregion
 
-        private bool isHandle;
+        #region Handle
 
-        private bool IsHandle
+        // Для таймера вызова
+        private void HandleTimerCallback(object state)
         {
-            get
+            IAtTimePlayDataMsg messageToHandle = null;
+
+            lock (_lock)
             {
-                return isHandle;
+                messageToHandle = _lastMessage;
+                _lastMessage = null;
+                _isThrottled = false;
             }
-            set
+
+            if (messageToHandle != null)
             {
-                if (isHandle == value) return;
-                isHandle = value;
+                Handle(messageToHandle);
             }
         }
 
-        #region Handle
 
         // Срабатывает когда происходят изменения на закладке запуска в определенное время.
         public async Task HandleAsync(IAtTimePlayDataMsg message, CancellationToken cancellationToken)
         {
-            if (IsHandle) return;
-            await Task.Run(() =>
+            // Сохраняем последнее сообщение
+            lock (_lock)
             {
-                IsHandle = true;
-                this.Handle(message);
-                IsHandle = false;
-                return Task.CompletedTask;
-            });
+                _lastMessage = message;
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
+
+            lock (_lock)
+            {
+                if (!_isThrottled)
+                {
+                    _isThrottled = true;
+                    _timer.Change(IntervalMs, Timeout.Infinite);
+                }
+            }
+            // Сразу вернём значение, что выполнили, что-б не тормозил UI
+            await Task.CompletedTask;
         }
 
 
@@ -217,7 +244,7 @@ namespace ShedulerLibrary
 
         #endregion
 
-        #endregion
+        #endregion // end region Handle
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов
@@ -230,6 +257,9 @@ namespace ShedulerLibrary
                 {
                     // TODO: освободить управляемое состояние (управляемые объекты).
                     _eventAggregator.Unsubscribe(this);
+                    // Остановим и удалим таймер изменений значений
+                    _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+                    _timer?.Dispose();
 
                     //  Удаляем все задания сначала
                     foreach (var guid in jobsDictionary)
